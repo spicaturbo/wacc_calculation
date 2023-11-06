@@ -7,11 +7,13 @@ def my_view(request):
     return render(request, "index.html")
 
 def wacc_view(request):
+    # Defining variable
     COE = None
     EED = None
     DED = None
     WACC = None
     if request.method == "POST":
+        # Request input by name
         num1 = float(request.POST.get('num1', 0))
         num2 = float(request.POST.get('num2', 0))
         num3 = float(request.POST.get('num3', 0))
@@ -27,11 +29,13 @@ def wacc_view(request):
         DED = num2 / (num1 + num2)
         WACC = (EED * COE) + (DED * num3 * (1 - num4))
 
+        # Result decimal
         result1 = f"{COE:.3f}"
         result2 = f"{EED:.3f}"
         result3 = f"{DED:.3f}"
         result4 = f"{WACC:.3f}"
 
+    # Render html & passing data
     return render(request, "wacc_calculation.html", {
             'num1': num1, 
             'num2': num2, 
