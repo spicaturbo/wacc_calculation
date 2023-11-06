@@ -25,12 +25,12 @@ def wacc_view(request):
         COE = num5 + num6 * (num7 - num5)
         EED = num1 / (num1 + num2)
         DED = num2 / (num1 + num2)
-        WACC = (DED * num7) + (DED * num3 * (1 - num4))
+        WACC = (EED * COE) + (DED * num3 * (1 - num4))
 
-        result1 = f"{COE:.2f}"
-        result2 = f"{EED:.2f}"
-        result3 = f"{DED:.2f}"
-        result4 = f"{WACC:.2f}"
+        result1 = f"{COE:.3f}"
+        result2 = f"{EED:.3f}"
+        result3 = f"{DED:.3f}"
+        result4 = f"{WACC:.3f}"
 
     return render(request, "wacc_calculation.html", {
             'num1': num1, 
