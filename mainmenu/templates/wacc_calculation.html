@@ -13,48 +13,104 @@
       <input placeholder="Search" type="search" class="focus:outline-none p-2" />
     </div>
     <div class="md:px-20 mt-5 flex gap-2 items-center">
-        <a href="/mainmenu/" class="hover:bg-blue-300 duration-150 transition p-2">Home</a>
-        <p>></p>
-        <a href="" class="hover:bg-blue-300 duration-150 transition p-2">WACC CALCULATOR</a>
+      <a href="/mainmenu/" class="hover:bg-blue-300 duration-150 transition p-2">Home</a>
+      <p>></p>
+      <a href="" class="hover:bg-blue-300 duration-150 transition p-2">WACC CALCULATOR</a>
     </div>
-    <div class="md:mx-20 md:p-5 my-5 bg-blue-300 h-full md:w-1/3 rounded-lg">
-        <h1 class="text-2xl font-semibold my-2 text-center">WACC CALCULATION</h1>
-        <table class="table border-separate border-spacing-5 w-full">
+    <div class="flex gap-4">
+      <div class="md:mx-20 md:p-5 my-5 bg-blue-300 h-full md:w-1/3 rounded-lg">
+        <form method="post">
+          {% csrf_token %}
+          <h1 class="text-2xl font-semibold my-2 text-center">WACC CALCULATION</h1>
+          <table class="table border-separate border-spacing-5 w-full">
             <tbody>
-                <tr>
-                    <td>Equity Value</td>
-                    <td><input placeholder="0" type="number" class="focus:outline-none p-2 rounded-lg ml-5" /></td>
-                </tr>
-                <tr>
-                    <td>Debt Value</td>
-                    <td><input placeholder="0" type="number" class="focus:outline-none p-2 rounded-lg ml-5" /></td>
-                </tr>
-                <tr>
-                    <td>Cost of Debt</td>
-                    <td><input placeholder="0" type="number" class="focus:outline-none p-2 rounded-lg ml-5" /></td>
-                </tr>
-                <tr>
-                    <td>Tax Rate</td>
-                    <td><input placeholder="0" type="number" class="focus:outline-none p-2 rounded-lg ml-5" /></td>
-                </tr>
-                <tr>
-                    <td>10y Treasury</td>
-                    <td><input placeholder="0" type="number" class="focus:outline-none p-2 rounded-lg ml-5" /></td>
-                </tr>
-                <tr>
-                    <td>Beta</td>
-                    <td><input placeholder="0" type="number" class="focus:outline-none p-2 rounded-lg ml-5" /></td>
-                </tr>
-                <tr>
-                    <td>Market Return</td>
-                    <td><input placeholder="0" type="number" class="focus:outline-none p-2 rounded-lg ml-5" /></td>
-                </tr>
-                <tr>
-                    <td>Growth Rate</td>
-                    <td><input placeholder="0" type="number" class="focus:outline-none p-2 rounded-lg ml-5" /></td>
-                </tr>
+              <tr>
+                <td>Equity Value</td>
+                <td>
+                  <input placeholder="0" value="{{ num1 }}" name="num1" type="number" step="0.01" min="0" class="focus:outline-none p-2 rounded-lg ml-5" />
+                </td>
+              </tr>
+              <tr>
+                <td>Debt Value</td>
+                <td>
+                  <input placeholder="0" value="{{ num2 }}" name="num2" type="number" step="0.01" min="0" class="focus:outline-none p-2 rounded-lg ml-5" />
+                </td>
+              </tr>
+              <tr>
+                <td>Cost of Debt</td>
+                <td>
+                  <input placeholder="0" value="{{ num3 }}" name="num3" type="number" step="0.01" min="0" class="focus:outline-none p-2 rounded-lg ml-5" />
+                </td>
+              </tr>
+              <tr>
+                <td>Tax Rate</td>
+                <td>
+                  <input placeholder="0" value="{{ num4 }}" name="num4" type="number" step="0.01" min="0" class="focus:outline-none p-2 rounded-lg ml-5" />
+                </td>
+              </tr>
+              <tr>
+                <td>10y Treasury</td>
+                <td>
+                  <input placeholder="0" value="{{ num5 }}" name="num5" type="number" step="0.01" min="0" class="focus:outline-none p-2 rounded-lg ml-5" />
+                </td>
+              </tr>
+              <tr>
+                <td>Beta</td>
+                <td>
+                  <input placeholder="0" value="{{ num6 }}" name="num6" type="number" step="0.01" min="0" class="focus:outline-none p-2 rounded-lg ml-5" />
+                </td>
+              </tr>
+              <tr>
+                <td>Market Return</td>
+                <td>
+                  <input placeholder="0" value="{{ num7 }}" name="num7" type="number" step="0.01" min="0" class="focus:outline-none p-2 rounded-lg ml-5" />
+                </td>
+              </tr>
+              <tr>
+                <td>Growth Rate</td>
+                <td>
+                  <input placeholder="0" value="{{ num8 }}" name="num8" type="number" step="0.01" min="0" class="focus:outline-none p-2 rounded-lg ml-5" />
+                </td>
+              </tr>
             </tbody>
-        </table>
+          </table>
+          <button type="submit" class="bg-blue-500 w-full p-2 rounded-lg text-white">Submit</button>
+        </form>
+      </div>
+
+      {% if COE %}
+        <div class="md:mx-0 md:p-5 my-5 bg-blue-300 h-full md:w-1/3 rounded-lg">
+          <h1 class="text-2xl font-semibold my-2 text-center">Result</h1>
+          <table class="table border-separate border-spacing-5 w-full">
+            <tbody>
+              <tr>
+                <td>Cost of Equity</td>
+                <td>
+                  <input placeholder="0" value="{{ COE }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5" />
+                </td>
+              </tr>
+              <tr>
+                <td>E / E + D</td>
+                <td>
+                  <input placeholder="0" value="{{ EED }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5" />
+                </td>
+              </tr>
+              <tr>
+                <td>D / E + D</td>
+                <td>
+                  <input placeholder="0" value="{{ DED }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5" />
+                </td>
+              </tr>
+              <tr>
+                <td>WACC</td>
+                <td>
+                  <input placeholder="0" value="{{ WACC }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5" />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      {% endif %}
     </div>
   </body>
 </html>
