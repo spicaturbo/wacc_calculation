@@ -8,10 +8,22 @@ def my_view(request):
 
 def wacc_view(request):
     # Defining variable
+    num1 = None
+    num2 = None
+    num3 = None
+    num4 = None
+    num5 = None
+    num6 = None
+    num7 = None
+    num8 = None
     COE = None
     EED = None
     DED = None
     WACC = None
+    result1 = None
+    result2 = None
+    result3 = None
+    result4 = None
     if request.method == "POST":
         # Request input by name
         num1 = float(request.POST.get('num1', 0))
