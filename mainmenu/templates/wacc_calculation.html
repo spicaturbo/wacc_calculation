@@ -17,8 +17,8 @@
       <p>></p>
       <a href="" class="hover:bg-blue-300 duration-150 transition p-2">WACC CALCULATOR</a>
     </div>
-    <div class="flex gap-2">
-      <div class="md:mx-20 md:p-5 my-5 bg-blue-300 h-full md:w-1/3 rounded-lg">
+    <div class="flex gap-2 md:px-10">
+      <div class="md:px-0 md:p-5 my-5 bg-blue-300 h-full md:w-full rounded-lg">
         <form method="post">
           {% csrf_token %}
           <h1 class="text-2xl font-semibold my-2 text-center">WACC CALCULATION</h1>
@@ -27,60 +27,89 @@
               <tr>
                 <td>Equity Value</td>
                 <td>
-                  <input placeholder="0" value="{{ num1 }}" name="num1" type="number" step="0.001" min="0" class="focus:outline-none p-2 rounded-lg ml-5" />
+                  <input placeholder="0" value="{{ num1 }}" name="num1" type="number" step="0.001" min="0" class="focus:outline-none p-2 rounded-lg ml-5" required />
+                </td>
+
+                <td>EBIT</td>
+                <td>
+                  <input placeholder="0" value="{{ EBIT }}" name="EBIT" type="number" step="0.001" class="focus:outline-none p-2 rounded-lg ml-5" required />
                 </td>
               </tr>
               <tr>
                 <td>Debt Value</td>
                 <td>
-                  <input placeholder="0" value="{{ num2 }}" name="num2" type="number" step="0.001" min="0" class="focus:outline-none p-2 rounded-lg ml-5" />
+                  <input placeholder="0" value="{{ num2 }}" name="num2" type="number" step="0.001" min="0" class="focus:outline-none p-2 rounded-lg ml-5" required />
+                </td>
+
+                <td>D&A</td>
+                <td>
+                  <input placeholder="0" value="{{ DA }}" name="DA" type="number" step="0.001" class="focus:outline-none p-2 rounded-lg ml-5" required />
                 </td>
               </tr>
               <tr>
                 <td>Cost of Debt</td>
                 <td>
-                  <input placeholder="0" value="{{ num3 }}" name="num3" type="number" step="0.001" min="0" class="focus:outline-none p-2 rounded-lg ml-5" />
+                  <input placeholder="0" value="{{ num3 }}" name="num3" type="number" step="0.001" min="0" class="focus:outline-none p-2 rounded-lg ml-5" required />
+                </td>
+
+                <td>CapEx</td>
+                <td>
+                  <input placeholder="0" value="{{ CapEx }}" name="CapEx" type="number" step="0.001" class="focus:outline-none p-2 rounded-lg ml-5" required />
                 </td>
               </tr>
               <tr>
                 <td>Tax Rate</td>
                 <td>
-                  <input placeholder="0" value="{{ num4 }}" name="num4" type="number" step="0.001" min="0" class="focus:outline-none p-2 rounded-lg ml-5" />
+                  <input placeholder="0" value="{{ num4 }}" name="num4" type="number" step="0.001" min="0" class="focus:outline-none p-2 rounded-lg ml-5" required />
+                </td>
+
+                <td>Non Cash WC</td>
+                <td>
+                  <input placeholder="0" value="{{ NonCashWC }}" name="NonCashWC" type="number" step="0.001" class="focus:outline-none p-2 rounded-lg ml-5" required />
                 </td>
               </tr>
               <tr>
                 <td>10y Treasury</td>
                 <td>
-                  <input placeholder="0" value="{{ num5 }}" name="num5" type="number" step="0.001" min="0" class="focus:outline-none p-2 rounded-lg ml-5" />
+                  <input placeholder="0" value="{{ num5 }}" name="num5" type="number" step="0.001" min="0" class="focus:outline-none p-2 rounded-lg ml-5" required />
                 </td>
               </tr>
               <tr>
                 <td>Beta</td>
                 <td>
-                  <input placeholder="0" value="{{ num6 }}" name="num6" type="number" step="0.001" min="0" class="focus:outline-none p-2 rounded-lg ml-5" />
+                  <input placeholder="0" value="{{ num6 }}" name="num6" type="number" step="0.001" min="0" class="focus:outline-none p-2 rounded-lg ml-5" required />
                 </td>
               </tr>
               <tr>
                 <td>Market Return</td>
                 <td>
-                  <input placeholder="0" value="{{ num7 }}" name="num7" type="number" step="0.001" min="0" class="focus:outline-none p-2 rounded-lg ml-5" />
+                  <input placeholder="0" value="{{ num7 }}" name="num7" type="number" step="0.001" min="0" class="focus:outline-none p-2 rounded-lg ml-5" required />
                 </td>
               </tr>
               <tr>
                 <td>Growth Rate</td>
                 <td>
-                  <input placeholder="0" value="{{ num8 }}" name="num8" type="number" step="0.001" min="0" class="focus:outline-none p-2 rounded-lg ml-5" />
+                  <input placeholder="0" value="{{ num8 }}" name="num8" type="number" step="0.001" min="0" class="focus:outline-none p-2 rounded-lg ml-5" required />
+                </td>
+              </tr>
+              <tr>
+                <td>Period (Year)</td>
+                <td>
+                  <input placeholder="0" value="{{ year }}" name="year" type="number" step="0.001" min="0" class="focus:outline-none p-2 rounded-lg ml-5" required />
                 </td>
               </tr>
             </tbody>
           </table>
-          <button type="submit" class="bg-blue-500 w-full p-2 rounded-lg text-white">Submit</button>
+          <input type="text" class="hidden" value="wacc" name="formType" />
+          <div class="md:px-20">
+            <button type="submit" class="bg-blue-500 w-full p-2 rounded-lg text-white">Submit</button>
+          </div>
         </form>
       </div>
 
       {% if COE %}
         <div class="md:w-full md:pb-5 md:px-5">
-          <div class="md:mx-0 md:p-5 md:w-1/2 my-5 bg-blue-300 h-1/2 rounded-lg">
+          <div class="md:mx-0 md:p-5 md:w-full my-5 bg-blue-300 h-1/2 rounded-lg">
             <h1 class="text-2xl font-semibold my-2 text-center">Result</h1>
             <table class="table border-separate border-spacing-5 w-full">
               <tbody>
@@ -111,175 +140,84 @@
               </tbody>
             </table>
           </div>
+        </div>
+      {% endif %}
+    </div>
 
-          {% if COE %}
-            <div class="md:mx-0 md:p-5 my-5 bg-blue-300 h-100 rounded-lg">
-              <form method="post">
-                <table class="table-auto border-separate border-spacing-5 w-full">
-                  <thead>
-                    <tr>
-                      <th>Period</th>
-                      <th>0</th>
-                      <th>1</th>
-                      <th>2</th>
-                      <th>3</th>
-                      <th>4</th>
-                      <th>5</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>EBIT</td>
-                      <td>
-                        <input placeholder="0" value="{{ EBIT1 }}" name="EBIT1" type="number" step="0.001" min="0" class="focus:outline-none p-2 rounded-lg ml-5 w-[70px]" />
-                      </td>
-                      <td>
-                        <input placeholder="0" value="{{ ebit_period_1 }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[70px]" />
-                      </td>
-                      <td>
-                        <input placeholder="0" value="{{ ebit_period_2 }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[70px]" />
-                      </td>
-                      <td>
-                        <input placeholder="0" value="{{ ebit_period_3 }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[70px]" />
-                      </td>
-                      <td>
-                        <input placeholder="0" value="{{ ebit_period_4 }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[70px]" />
-                      </td>
-                      <td>
-                        <input placeholder="0" value="{{ ebit_period_5 }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[70px]" />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Tax</td>
-                      <td>
-                        <input placeholder="0" value="{{ COE }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[70px]" />
-                      </td>
-                      <td>
-                        <input placeholder="0" value="{{ COE }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[70px]" />
-                      </td>
-                      <td>
-                        <input placeholder="0" value="{{ COE }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[70px]" />
-                      </td>
-                      <td>
-                        <input placeholder="0" value="{{ COE }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[70px]" />
-                      </td>
-                      <td>
-                        <input placeholder="0" value="{{ COE }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[70px]" />
-                      </td>
-                      <td>
-                        <input placeholder="0" value="{{ COE }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[70px]" />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>D&A</td>
-                      <td>
-                        <input placeholder="0" value="{{ COE }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[70px]" />
-                      </td>
-                      <td>
-                        <input placeholder="0" value="{{ COE }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[70px]" />
-                      </td>
-                      <td>
-                        <input placeholder="0" value="{{ COE }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[70px]" />
-                      </td>
-                      <td>
-                        <input placeholder="0" value="{{ COE }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[70px]" />
-                      </td>
-                      <td>
-                        <input placeholder="0" value="{{ COE }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[70px]" />
-                      </td>
-                      <td>
-                        <input placeholder="0" value="{{ COE }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[70px]" />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>CapEx</td>
-                      <td>
-                        <input placeholder="0" value="{{ COE }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[70px]" />
-                      </td>
-                      <td>
-                        <input placeholder="0" value="{{ COE }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[70px]" />
-                      </td>
-                      <td>
-                        <input placeholder="0" value="{{ COE }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[70px]" />
-                      </td>
-                      <td>
-                        <input placeholder="0" value="{{ COE }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[70px]" />
-                      </td>
-                      <td>
-                        <input placeholder="0" value="{{ COE }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[70px]" />
-                      </td>
-                      <td>
-                        <input placeholder="0" value="{{ COE }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[70px]" />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Non Cash WC</td>
-                      <td>
-                        <input placeholder="0" value="{{ COE }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[70px]" />
-                      </td>
-                      <td>
-                        <input placeholder="0" value="{{ COE }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[70px]" />
-                      </td>
-                      <td>
-                        <input placeholder="0" value="{{ COE }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[70px]" />
-                      </td>
-                      <td>
-                        <input placeholder="0" value="{{ COE }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[70px]" />
-                      </td>
-                      <td>
-                        <input placeholder="0" value="{{ COE }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[70px]" />
-                      </td>
-                      <td>
-                        <input placeholder="0" value="{{ COE }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[70px]" />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>FCF</td>
-                      <td>
-                        <input placeholder="0" value="{{ COE }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[70px]" />
-                      </td>
-                      <td>
-                        <input placeholder="0" value="{{ COE }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[70px]" />
-                      </td>
-                      <td>
-                        <input placeholder="0" value="{{ COE }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[70px]" />
-                      </td>
-                      <td>
-                        <input placeholder="0" value="{{ COE }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[70px]" />
-                      </td>
-                      <td>
-                        <input placeholder="0" value="{{ COE }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[70px]" />
-                      </td>
-                      <td>
-                        <input placeholder="0" value="{{ COE }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[70px]" />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>TV</td>
-                      <td>
-                        <input placeholder="0" value="{{ COE }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[70px]" />
-                      </td>
-                      <td>
-                        <input placeholder="0" value="{{ COE }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[70px]" />
-                      </td>
-                      <td>
-                        <input placeholder="0" value="{{ COE }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[70px]" />
-                      </td>
-                      <td>
-                        <input placeholder="0" value="{{ COE }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[70px]" />
-                      </td>
-                      <td>
-                        <input placeholder="0" value="{{ COE }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[70px]" />
-                      </td>
-                      <td>
-                        <input placeholder="0" value="{{ COE }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[70px]" />
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </form>
-            </div>
-          {% endif %}
+    <div class="md:px-10">
+      {% if COE %}
+        <div class="md:mx-0 md:p-5 my-5 bg-blue-300 h-100 rounded-lg">
+          <table class="table-auto border-separate border-spacing-5 w-full">
+            <thead class="">
+              <tr>
+                <th>Period</th>
+                {% for yr in arrayYear %}
+                  <th>{{ yr }}</th>
+                {% endfor %}
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>EBIT</td>
+                {% for item in arrayEBIT %}
+                  <td>
+                    <input placeholder="0" value="{{ item }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[100px]" />
+                  </td>
+                {% endfor %}
+              </tr>
+              <tr>
+                <td>Tax</td>
+                {% for item in arrayTax %}
+                  <td>
+                    <input placeholder="0" value="{{ item }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[100px]" />
+                  </td>
+                {% endfor %}
+              </tr>
+              <tr>
+                <td>D&A</td>
+                {% for item in arrayDA %}
+                  <td>
+                    <input placeholder="0" value="{{ item }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[100px]" />
+                  </td>
+                {% endfor %}
+              </tr>
+              <tr>
+                <td>CapEx</td>
+                {% for item in arrayCapEx %}
+                  <td>
+                    <input placeholder="0" value="{{ item }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[100px]" />
+                  </td>
+                {% endfor %}
+              </tr>
+              <tr>
+                <td>Non Cash WC</td>
+                {% for item in arrayNonCashWC %}
+                  <td>
+                    <input placeholder="0" value="{{ item }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[100px]" />
+                  </td>
+                {% endfor %}
+              </tr>
+              <tr>
+                <td>FCF</td>
+                {% for item in arrayFCF %}
+                  <td>
+                    <input placeholder="0" value="{{ item }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[100px]" />
+                  </td>
+                {% endfor %}
+              </tr>
+              <tr>
+                <td>TV</td>
+                {% for yr in arrayYear %}
+                  <td>{{yr}}</td>
+                  {% if forloop.last %}
+                    <td>
+                      <input placeholder="0" value="0" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[100px]" />
+                    </td>
+                  {% endif %}
+                {% endfor %}
+              </tr>
+            </tbody>
+          </table>
         </div>
       {% endif %}
     </div>
