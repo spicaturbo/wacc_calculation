@@ -73,11 +73,21 @@
                 <td>
                   <input placeholder="0" value="{{ num5 }}" name="num5" type="number" step="0.001" min="0" class="focus:outline-none p-2 rounded-lg ml-5" required />
                 </td>
+
+                <td>Cash</td>
+                <td>
+                  <input placeholder="0" value="{{ Cash }}" name="Cash" type="number" step="0.001" class="focus:outline-none p-2 rounded-lg ml-5" required />
+                </td>
               </tr>
               <tr>
                 <td>Beta</td>
                 <td>
                   <input placeholder="0" value="{{ num6 }}" name="num6" type="number" step="0.001" min="0" class="focus:outline-none p-2 rounded-lg ml-5" required />
+                </td>
+
+                <td>Marketable Securities</td>
+                <td>
+                  <input placeholder="0" value="{{ MS }}" name="MS" type="number" step="0.001" class="focus:outline-none p-2 rounded-lg ml-5" required />
                 </td>
               </tr>
               <tr>
@@ -85,17 +95,32 @@
                 <td>
                   <input placeholder="0" value="{{ num7 }}" name="num7" type="number" step="0.001" min="0" class="focus:outline-none p-2 rounded-lg ml-5" required />
                 </td>
+
+                <td>Short Term Debt</td>
+                <td>
+                  <input placeholder="0" value="{{ STD }}" name="STD" type="number" step="0.001" class="focus:outline-none p-2 rounded-lg ml-5" required />
+                </td>
               </tr>
               <tr>
                 <td>Growth Rate</td>
                 <td>
                   <input placeholder="0" value="{{ num8 }}" name="num8" type="number" step="0.001" min="0" class="focus:outline-none p-2 rounded-lg ml-5" required />
                 </td>
+
+                <td>Long Term Debt</td>
+                <td>
+                  <input placeholder="0" value="{{ LTD }}" name="LTD" type="number" step="0.001" class="focus:outline-none p-2 rounded-lg ml-5" required />
+                </td>
               </tr>
               <tr>
                 <td>Period (Year)</td>
                 <td>
                   <input placeholder="0" value="{{ year }}" name="year" type="number" step="0.001" min="0" class="focus:outline-none p-2 rounded-lg ml-5" required />
+                </td>
+
+                <td>Outstanding Shares</td>
+                <td>
+                  <input placeholder="0" value="{{ OSH }}" name="OSH" type="number" step="0.001" class="focus:outline-none p-2 rounded-lg ml-5" required />
                 </td>
               </tr>
             </tbody>
@@ -218,53 +243,70 @@
               </tr>
               <tr>
                 <td>Discount Factor</td>
-                {% for item in arrayFCF %}
-                  {% if forloop.first %}
+                {% for item in arrayDiscount %}
+                  {% if item is null %}
                     <td></td>
+                  {% else %}
+                    <td>
+                      <input placeholder="0" value="{{ item }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[100px]" />
+                    </td>
                   {% endif %}
-                  <td>
-                    <input placeholder="0" value="{{ item }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[100px]" />
-                  </td>
                 {% endfor %}
               </tr>
               <tr>
                 <td>PV of FCF</td>
-                {% for item in arrayFCF %}
-                  <td>
-                    <input placeholder="0" value="{{ item }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[100px]" />
-                  </td>
+                {% for item in arrayPVFCF %}
+                  {% if item is null %}
+                    <td></td>
+                  {% else %}
+                    <td>
+                      <input placeholder="0" value="{{ item }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[100px]" />
+                    </td>
+                  {% endif %}
                 {% endfor %}
               </tr>
               <tr>
                 <td>PV of TV</td>
-                {% for item in arrayFCF %}
-                  <td>
-                    <input placeholder="0" value="{{ item }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[100px]" />
-                  </td>
+                {% for yr in arrayYear %}
+                  <td></td>
+                  {% if forloop.revcounter == 2 %}
+                    <td>
+                      <input placeholder="0" value="{{ PVTV }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[100px]" />
+                    </td>
+                  {% endif %}
                 {% endfor %}
               </tr>
               <tr>
                 <td>Enterprise Value</td>
-                {% for item in arrayFCF %}
-                  <td>
-                    <input placeholder="0" value="{{ item }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[100px]" />
-                  </td>
+                {% for yr in arrayYear %}
+                  <td></td>
+                  {% if yr is 0 %}
+                    <td>
+                      <input placeholder="0" value="{{ PVTV }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[100px]" />
+                    </td>
+                  {% endif %}
                 {% endfor %}
               </tr>
               <tr>
                 <td>Equity Value</td>
-                {% for item in arrayFCF %}
+                {% for yr in arrayYear %}
+                <td></td>
+                {% if yr is 0 %}
                   <td>
-                    <input placeholder="0" value="{{ item }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[100px]" />
+                    <input placeholder="0" value="{{ PVTV }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[100px]" />
                   </td>
-                {% endfor %}
+                {% endif %}
+              {% endfor %}
               </tr>
               <tr>
                 <td>Instrinsic Value</td>
-                {% for item in arrayFCF %}
-                  <td>
-                    <input placeholder="0" value="{{ item }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[100px]" />
-                  </td>
+                {% for yr in arrayYear %}
+                  <td></td>
+                  {% if yr is 0 %}
+                    <td>
+                      <input placeholder="0" value="{{ PVTV }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[100px]" />
+                    </td>
+                  {% endif %}
                 {% endfor %}
               </tr>
             </tbody>

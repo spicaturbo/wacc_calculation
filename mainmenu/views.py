@@ -16,10 +16,12 @@ def wacc_view(request):
     num6 = None
     num7 = None
     num8 = None
+
     COE = None
     EED = None
     DED = None
     WACC = None
+    result = None
     result1 = None
     result2 = None
     result3 = None
@@ -37,6 +39,23 @@ def wacc_view(request):
     rCapex = None
     rNoncashwc = None
     TV = None
+    rFCF = None
+    rDiscount = None
+    rPVFCF = None
+    PVTV = None
+    Cash = None
+    MS = None
+    STD = None
+    LTD = None
+    OS = None
+    rCash = None
+    rMS = None
+    rSTD = None
+    rLTD = None
+    rOS = None
+    EnterpriseValue = None
+    EquityValue = None
+    IntrinsicValue = None
 
     arrayYear = None
     arrayEBIT = []
@@ -45,6 +64,9 @@ def wacc_view(request):
     arrayCapEx = []
     arrayNonCashWC = []
     arrayFCF = []
+    arrayDiscount = []
+    arrayPVFCF = []
+
 
     if request.method == "POST":
         year = int(request.POST.get('year', 0))
@@ -60,6 +82,11 @@ def wacc_view(request):
         DA = float(request.POST.get('DA', 0))
         CapEx = float(request.POST.get('CapEx', 0))
         NonCashWC = float(request.POST.get('NonCashWC', 0))
+        Cash = float(request.POST.get('Cash', 0))
+        MS = float(request.POST.get('MS', 0))
+        STD = float(request.POST.get('STD', 0))
+        LTD = float(request.POST.get('LTD', 0))
+        OS = float(request.POST.get('OS', 0))
 
         # Result
         COE = num5 + num6 * (num7 - num5)
@@ -108,15 +135,28 @@ def wacc_view(request):
                 dec1 = float(arrayNonCashWC[index - 1]) * ((1 + num8) ** yr )
                 rNoncashwc = f"{dec1:.0f}"
 
+            rFCF = float(rEBIT) + float(rDA) + float(rTax) + float(rCapex) + float(rNoncashwc)
+
+            if index != 0:
+                dec1 = 1 / ((1 + WACC) ** yr)
+                rDiscount = f"{dec1:.2f}"
+                dec2 = float(rDiscount) * float(rFCF)
+                rPVFCF = f"{dec2:.0f}"
+
             arrayEBIT.append(rEBIT)
             arrayTax.append(rTax)
             arrayDA.append(rDA)
             arrayCapEx.append(rCapex)
             arrayNonCashWC.append(rNoncashwc)
-            arrayFCF.append(float(rEBIT) + float(rDA) + float(rTax) + float(rCapex) + float(rNoncashwc))
+            arrayFCF.append(rFCF)
+            arrayDiscount.append(rDiscount)
+            arrayPVFCF.append(rPVFCF)
 
             TV = (float(arrayFCF[-1]) * (1 + num8)) / (WACC - num8)
             resultTV = f"{TV:.0f}"
+
+            PVTV = 2 * float(resultTV)
+            rPVTV = f"{PVTV:.0f}"
 
         
         
@@ -147,5 +187,13 @@ def wacc_view(request):
             'arrayCapEx': arrayCapEx,
             'arrayNonCashWC': arrayNonCashWC,
             'arrayFCF': arrayFCF,
-            'TV': resultTV
+            'TV': resultTV,
+            'arrayDiscount': arrayDiscount,
+            'arrayPVFCF': arrayPVFCF,
+            'PVTV': rPVTV,
+            "Cash": Cash,
+            "MS": MS,
+            "STD": STD,
+            "LTD": LTD,
+            "OS": OS,
         })
