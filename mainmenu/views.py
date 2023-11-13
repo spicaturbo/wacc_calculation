@@ -24,6 +24,7 @@ def wacc_view(request):
     result2 = None
     result3 = None
     result4 = None
+    resultTV = None
 
     year = None
     EBIT = None
@@ -35,6 +36,7 @@ def wacc_view(request):
     rDA = None
     rCapex = None
     rNoncashwc = None
+    TV = None
 
     arrayYear = None
     arrayEBIT = []
@@ -43,7 +45,6 @@ def wacc_view(request):
     arrayCapEx = []
     arrayNonCashWC = []
     arrayFCF = []
-    arrayTV = []
 
     if request.method == "POST":
         year = int(request.POST.get('year', 0))
@@ -114,6 +115,9 @@ def wacc_view(request):
             arrayNonCashWC.append(rNoncashwc)
             arrayFCF.append(float(rEBIT) + float(rDA) + float(rTax) + float(rCapex) + float(rNoncashwc))
 
+            TV = (float(arrayFCF[-1]) * (1 + num8)) / (WACC - num8)
+            resultTV = f"{TV:.0f}"
+
         
         
 
@@ -143,4 +147,5 @@ def wacc_view(request):
             'arrayCapEx': arrayCapEx,
             'arrayNonCashWC': arrayNonCashWC,
             'arrayFCF': arrayFCF,
+            'TV': resultTV
         })

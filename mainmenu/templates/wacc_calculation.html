@@ -208,18 +208,73 @@
               <tr>
                 <td>TV</td>
                 {% for yr in arrayYear %}
-                  {% comment %} <td>{{yr}}</td> {% endcomment %}
-                  {% if forloop.last %}
+                  <td></td>
+                  {% if forloop.revcounter == 2 %}
                     <td>
-                      <input placeholder="0" value="0" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[100px]" />
+                      <input placeholder="0" value="{{ TV }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[100px]" />
                     </td>
                   {% endif %}
+                {% endfor %}
+              </tr>
+              <tr>
+                <td>Discount Factor</td>
+                {% for item in arrayFCF %}
+                  {% if forloop.first %}
+                    <td></td>
+                  {% endif %}
+                  <td>
+                    <input placeholder="0" value="{{ item }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[100px]" />
+                  </td>
+                {% endfor %}
+              </tr>
+              <tr>
+                <td>PV of FCF</td>
+                {% for item in arrayFCF %}
+                  <td>
+                    <input placeholder="0" value="{{ item }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[100px]" />
+                  </td>
+                {% endfor %}
+              </tr>
+              <tr>
+                <td>PV of TV</td>
+                {% for item in arrayFCF %}
+                  <td>
+                    <input placeholder="0" value="{{ item }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[100px]" />
+                  </td>
+                {% endfor %}
+              </tr>
+              <tr>
+                <td>Enterprise Value</td>
+                {% for item in arrayFCF %}
+                  <td>
+                    <input placeholder="0" value="{{ item }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[100px]" />
+                  </td>
+                {% endfor %}
+              </tr>
+              <tr>
+                <td>Equity Value</td>
+                {% for item in arrayFCF %}
+                  <td>
+                    <input placeholder="0" value="{{ item }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[100px]" />
+                  </td>
+                {% endfor %}
+              </tr>
+              <tr>
+                <td>Instrinsic Value</td>
+                {% for item in arrayFCF %}
+                  <td>
+                    <input placeholder="0" value="{{ item }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[100px]" />
+                  </td>
                 {% endfor %}
               </tr>
             </tbody>
           </table>
         </div>
       {% endif %}
+    </div>
+
+    <div class="bg-black w-full p-10 flex justify-center items-center">
+      <a href="https://fastwork.id/user/spicaturbo" target="_blank" class="text-center text-white text-2xl font-bold">Developed By Spica</a>
     </div>
   </body>
 </html>
