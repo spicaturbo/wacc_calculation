@@ -42,18 +42,19 @@ def wacc_view(request):
     rFCF = None
     rDiscount = None
     rPVFCF = None
-    PVTV = None
+    PVTV = 0
+    rPVTV = 0
     Cash = None
     MS = None
     STD = None
     LTD = None
-    OS = None
+    OSH = None
     rCash = None
     rMS = None
     rSTD = None
     rLTD = None
-    rOS = None
-    EnterpriseValue = None
+    rOSH = None
+    EnterpriseValue = 0
     EquityValue = None
     IntrinsicValue = None
 
@@ -86,7 +87,7 @@ def wacc_view(request):
         MS = float(request.POST.get('MS', 0))
         STD = float(request.POST.get('STD', 0))
         LTD = float(request.POST.get('LTD', 0))
-        OS = float(request.POST.get('OS', 0))
+        OSH = float(request.POST.get('OSH', 0))
 
         # Result
         COE = num5 + num6 * (num7 - num5)
@@ -152,11 +153,27 @@ def wacc_view(request):
             arrayDiscount.append(rDiscount)
             arrayPVFCF.append(rPVFCF)
 
-            TV = (float(arrayFCF[-1]) * (1 + num8)) / (WACC - num8)
-            resultTV = f"{TV:.0f}"
+        TV = (float(arrayFCF[-1]) * (1 + num8)) / (WACC - num8)
+        resultTV = f"{TV:.0f}"
 
-            PVTV = 2 * float(resultTV)
-            rPVTV = f"{PVTV:.0f}"
+        PVTV = float(arrayDiscount[-1]) * float(resultTV)
+        rPVTV = f"{PVTV:.0f}"
+
+        res = 0
+
+        for x in arrayPVFCF:
+            if x is not None:
+                res += float(x)
+
+        res = res + PVTV
+
+        EnterpriseValue = f"{res:.0f}"
+
+        result = float(EnterpriseValue) + Cash + MS - STD - LTD
+        EquityValue = f"{result:.0f}"
+
+        results = float(EquityValue)/OSH
+        IntrinsicValue = f"{results:.2f}"
 
         
         
@@ -195,5 +212,8 @@ def wacc_view(request):
             "MS": MS,
             "STD": STD,
             "LTD": LTD,
-            "OS": OS,
+            "OSH": OSH,
+            "EquityValue": EquityValue,
+            "EnterpriseValue": EnterpriseValue,
+            "IntrinsicValue": IntrinsicValue,
         })

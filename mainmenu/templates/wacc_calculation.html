@@ -8,7 +8,7 @@
   </head>
   <body>
     {% comment %}Header{% endcomment %}
-    <div class="md:h-20 bg-blue-300 w-full flex justify-between items-center md:px-20">
+    <div class="md:h-20 h-[50px] bg-blue-300 md:w-full w-full flex md:flex-row flex-col justify-between items-center md:px-20">
       <h1 class="text-2xl font-bold">WACC</h1>
       <input placeholder="Search" type="search" class="focus:outline-none p-2" />
     </div>
@@ -17,8 +17,8 @@
       <p>></p>
       <a href="" class="hover:bg-blue-300 duration-150 transition p-2">WACC CALCULATOR</a>
     </div>
-    <div class="flex gap-2 md:px-10">
-      <div class="md:px-0 md:p-5 my-5 bg-blue-300 h-full md:w-full rounded-lg">
+    <div class="flex md:flex-row flex-col gap-2 md:px-10 px-0">
+      <div class="md:px-0 md:p-5 my-5 bg-blue-300 h-full md:w-full w-full rounded-lg">
         <form method="post">
           {% csrf_token %}
           <h1 class="text-2xl font-semibold my-2 text-center">WACC CALCULATION</h1>
@@ -280,9 +280,9 @@
                 <td>Enterprise Value</td>
                 {% for yr in arrayYear %}
                   <td></td>
-                  {% if yr is 0 %}
+                  {% if yr == 0 %}
                     <td>
-                      <input placeholder="0" value="{{ PVTV }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[100px]" />
+                      <input placeholder="0" value="{{ EnterpriseValue }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[100px]" />
                     </td>
                   {% endif %}
                 {% endfor %}
@@ -290,21 +290,21 @@
               <tr>
                 <td>Equity Value</td>
                 {% for yr in arrayYear %}
-                <td></td>
-                {% if yr is 0 %}
-                  <td>
-                    <input placeholder="0" value="{{ PVTV }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[100px]" />
-                  </td>
-                {% endif %}
-              {% endfor %}
+                  <td></td>
+                  {% if yr == 0 %}
+                    <td>
+                      <input placeholder="0" value="{{ EquityValue }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[100px]" />
+                    </td>
+                  {% endif %}
+                {% endfor %}
               </tr>
               <tr>
                 <td>Instrinsic Value</td>
                 {% for yr in arrayYear %}
                   <td></td>
-                  {% if yr is 0 %}
+                  {% if yr == 0 %}
                     <td>
-                      <input placeholder="0" value="{{ PVTV }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[100px]" />
+                      <input placeholder="0" value="{{ IntrinsicValue }}" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[100px]" />
                     </td>
                   {% endif %}
                 {% endfor %}
