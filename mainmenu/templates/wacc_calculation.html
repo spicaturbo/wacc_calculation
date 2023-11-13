@@ -208,7 +208,7 @@
               <tr>
                 <td>TV</td>
                 {% for yr in arrayYear %}
-                  <td>{{yr}}</td>
+                  {% comment %} <td>{{yr}}</td> {% endcomment %}
                   {% if forloop.last %}
                     <td>
                       <input placeholder="0" value="0" readonly type="number" class="focus:outline-none p-2 rounded-lg ml-5 w-[100px]" />

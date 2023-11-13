@@ -28,6 +28,9 @@ def wacc_view(request):
     year = None
     EBIT = None
     rEBIT = None
+    DA = None
+    CapEx = None
+    NonCashWC = None
     rTax = None
     rDA = None
     rCapex = None
