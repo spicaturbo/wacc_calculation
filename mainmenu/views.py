@@ -72,16 +72,16 @@ def wacc_view(request):
         num1 = float(request.POST.get('num1', 0))
         num2 = float(request.POST.get('num2', 0))
         num3 = float(request.POST.get('num3', 0))
-        num3 = num3 / 100
+        rnum3 = num3 / 100
         num4 = float(request.POST.get('num4', 0))
-        num4 = num4 / 100
+        rnum4 = num4 / 100
         num5 = float(request.POST.get('num5', 0))
-        num5 = num5 / 100
+        rnum5 = num5 / 100
         num6 = float(request.POST.get('num6', 0))
         num7 = float(request.POST.get('num7', 0))
-        num7 = num7 / 100
+        rnum7 = num7 / 100
         num8 = float(request.POST.get('num8', 0))
-        num8 = num8 / 100
+        rnum8 = num8 / 100
         EBIT = float(request.POST.get('EBIT', 0))
         DA = float(request.POST.get('DA', 0))
         CapEx = float(request.POST.get('CapEx', 0))
@@ -93,10 +93,10 @@ def wacc_view(request):
         OSH = float(request.POST.get('OSH', 0))
 
         # Result
-        COE = (num5 + num6 * (num7 - num5))
+        COE = (rnum5 + num6 * (rnum7 - rnum5))
         EED = (num1 / (num1 + num2))
         DED = (num2 / (num1 + num2))
-        WACC = ((EED * COE) + (DED * num3 * (1 - num4)))
+        WACC = ((EED * COE) + (DED * rnum3 * (1 - rnum4)))
 
         # Result decimal
         result1 = f"{COE * 100:.3f}"
@@ -109,34 +109,34 @@ def wacc_view(request):
         # Result EBIT
         for index, yr in enumerate(arrayYear):
             if index == 0:
-                dec1 = EBIT * ((1 + num8) ** yr )
+                dec1 = EBIT * ((1 + rnum8) ** yr )
                 rEBIT = f"{dec1:.3f}"
-                rTax = EBIT * -num4
+                rTax = EBIT * -rnum4
             else :
-                dec1 = float(arrayEBIT[index - 1]) * ((1 + num8) ** yr )
+                dec1 = float(arrayEBIT[index - 1]) * ((1 + rnum8) ** yr )
                 rEBIT = f"{dec1:.3f}"
-                dec2 = float(dec1) * -num4
+                dec2 = float(dec1) * -rnum4
                 rTax = f"{dec2:.3f}"
 
             if index == 0:
-                dec1 = DA * ((1 + num8) ** yr )
+                dec1 = DA * ((1 + rnum8) ** yr )
                 rDA = f"{dec1:.3f}"
             else :
-                dec1 = float(arrayDA[index - 1]) * ((1 + num8) ** yr )
+                dec1 = float(arrayDA[index - 1]) * ((1 + rnum8) ** yr )
                 rDA = f"{dec1:.3f}"
 
             if index == 0:
-                dec1 = CapEx * ((1 + num8) ** yr )
+                dec1 = CapEx * ((1 + rnum8) ** yr )
                 rCapex = f"{dec1:.3f}"
             else :
-                dec1 = float(arrayCapEx[index - 1]) * ((1 + num8) ** yr )
+                dec1 = float(arrayCapEx[index - 1]) * ((1 + rnum8) ** yr )
                 rCapex = f"{dec1:.3f}"
 
             if index == 0:
-                dec1 = NonCashWC * ((1 + num8) ** yr )
+                dec1 = NonCashWC * ((1 + rnum8) ** yr )
                 rNoncashwc = f"{dec1:.3f}"
             else :
-                dec1 = float(arrayNonCashWC[index - 1]) * ((1 + num8) ** yr )
+                dec1 = float(arrayNonCashWC[index - 1]) * ((1 + rnum8) ** yr )
                 rNoncashwc = f"{dec1:.3f}"
 
             rFCF = float(rEBIT) + float(rDA) + float(rTax) + float(rCapex) + float(rNoncashwc)
@@ -156,7 +156,7 @@ def wacc_view(request):
             arrayDiscount.append(rDiscount)
             arrayPVFCF.append(rPVFCF)
 
-        TV = (float(arrayFCF[-1]) * (1 + num8)) / (WACC - num8)
+        TV = (float(arrayFCF[-1]) * (1 + rnum8)) / (WACC - rnum8)
         resultTV = f"{TV:.3f}"
 
         PVTV = float(arrayDiscount[-1]) * float(resultTV)
