@@ -143,7 +143,7 @@ def wacc_view(request):
 
             if index != 0:
                 dec1 = (1 / ((1 + WACC) ** yr))
-                rDiscount = f"{dec1:.2f}"
+                rDiscount = f"{dec1:.3f}"
                 dec2 = (float(rDiscount) * float(rFCF))
                 rPVFCF = f"{dec2:.3f}"
 
